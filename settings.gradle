@@ -1,0 +1,12 @@
+rootProject.name = 'grooves-grails'
+
+def releasable = ['gorm']
+gradle.ext.releasable = releasable
+releasable.each { include "grooves-${it}" }
+
+def examples = [
+    /* Grails + RDBMS */
+    'grails:rdbms',
+]
+
+examples.each { include "examples:${it}" }
