@@ -2,7 +2,7 @@ package grooves.grails.rdbms
 
 import grails.converters.JSON
 import grails.rx.web.RxController
-import grails.transaction.Transactional
+import grails.gorm.transactions.Transactional
 
 import static org.springframework.http.HttpStatus.NOT_FOUND
 import static rx.RxReactiveStreams.toObservable
