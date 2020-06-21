@@ -1,0 +1,66 @@
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: Publish RC
+
+on:
+  push:
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache Gradle Caches
+        id: cache-gradle-caches
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{hashFiles('**/*.gradle')}}
+          path: |
+            ~/.gradle/caches
+
+      - name: Cache Gradle Wrapper
+        id: cache-gradle-wrapper
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+          path: |
+            ~/.gradle/wrapper
+
+      - uses: gradle/wrapper-validation-action@v1
+        name: Validate Gradle Wrapper
+
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Build with Gradle
+        env:
+          NEXUS_USER: rahulsom
+          NEXUS_PASSWORD: ${{secrets.NEXUS_PASSWORD}}
+          GRGIT_USER: ${{secrets.GH_TOKEN}}
+          PGP_KEY: ${{secrets.PGP_KEY}}
+          PGP_KEY_ID: ${{secrets.PGP_KEY_ID}}
+          PGP_PASSWORD: ${{secrets.PGP_PASSWORD}}
+        run: |
+          mkdir -p ~/.gradle
+          {
+            echo "nexusUsername=$NEXUS_USER"
+            echo "nexusPassword=$NEXUS_PASSWORD"
+            echo "signing.keyId=$PGP_KEY_ID"
+            echo "signing.password=$PGP_PASSWORD"
+          } >> ~/.gradle/gradle.properties
+          set -x
+          set -v
+          echo "$PGP_KEY" > /tmp/gpg.key
+          gpg --import --no-tty --batch --yes /tmp/gpg.key
+          gpg --export-secret-keys > ~/.gnupg/secring.gpg
+          set +x
+          set +v
+          ./gradlew -Prelease.useLastTag=true build candidate --stacktrace --scan
