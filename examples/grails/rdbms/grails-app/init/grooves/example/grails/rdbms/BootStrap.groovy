@@ -277,10 +277,11 @@ class BootStrap {
     }
 
     /**
+     * Merge self into into
      *
      * @param self The aggregate to be deprecated
      * @param into The aggregate to survive
-     * @return
+     * @return The deprecatedBy event
      */
     private PatientDeprecatedBy merge(Patient self, Patient into) {
         def e1 = new PatientDeprecatedBy(aggregate: self, deprecator: into,
