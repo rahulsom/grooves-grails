@@ -2,9 +2,15 @@ ruleset {
 
     ruleset('rulesets/basic.xml')
     ruleset('rulesets/braces.xml')
+    ruleset('rulesets/comments.xml') {
+		ClassJavadoc(enabled: false)
+	}
     ruleset('rulesets/concurrency.xml')
     ruleset('rulesets/convention.xml') {
+		CompileStatic(enabled: false)
         FieldTypeRequired(enabled: false)
+		ImplicitReturnStatement(enabled: false)
+		ImplicitClosureParameter(enabled: false)
         NoDef(enabled: false)
         VariableTypeRequired(enabled: false)
         MethodReturnTypeRequired(enabled: false)
@@ -15,11 +21,12 @@ ruleset {
     ruleset('rulesets/enhanced.xml')
     ruleset('rulesets/exceptions.xml')
     ruleset('rulesets/formatting.xml') {
+		ClassEndsWithBlankLine(enabled: false)
+		ClassStartsWithBlankLine(enabled: false)
         SpaceAroundMapEntryColon {
             characterBeforeColonRegex = /./
             characterAfterColonRegex = /\s/
         }
-        ClassJavadoc(enabled: false)
         Indentation(enabled: false)
     }
     ruleset('rulesets/generic.xml')

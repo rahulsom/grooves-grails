@@ -24,7 +24,7 @@ class DoctorPatientsQuery implements JoinSupport< // <1>
 
 //end::joins[]
     static DoctorPatients detachSnapshot(DoctorPatients snapshot) {
-        if (snapshot.isAttached()) {
+        if (snapshot.attached) {
             snapshot.discard()
             snapshot.id = null
         }

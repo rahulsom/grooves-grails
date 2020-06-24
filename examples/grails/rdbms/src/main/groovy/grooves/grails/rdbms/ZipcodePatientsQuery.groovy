@@ -48,7 +48,7 @@ class ZipcodePatientsQuery implements GormJoinSupport<
 
     @Override
     ZipcodePatients detachSnapshot(ZipcodePatients snapshot) {
-        if (snapshot.isAttached()) {
+        if (snapshot.attached) {
             snapshot.discard()
             snapshot.id = null
         }
