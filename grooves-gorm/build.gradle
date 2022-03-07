@@ -13,7 +13,7 @@ dependencies {
 
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
 
-    compileOnly 'org.grails:grails-datastore-gorm:7.0.4.RELEASE'
+    compileOnly 'org.grails:grails-datastore-gorm:7.2.1'
     compileOnly 'org.grails:grails-datastore-gorm-rx:7.0.4.RELEASE'
     compileOnly "org.jetbrains:annotations:21.0.1"
 
