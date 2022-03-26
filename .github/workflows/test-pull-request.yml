@@ -17,7 +17,7 @@ jobs:
 
     - name: Cache Gradle Caches
       id: cache-gradle-caches
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         key: ${{ runner.os }}-${{hashFiles('**/*.gradle')}}
         path: |
@@ -25,7 +25,7 @@ jobs:
 
     - name: Cache Gradle Wrapper
       id: cache-gradle-wrapper
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
         path: |
