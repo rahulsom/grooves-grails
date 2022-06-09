@@ -4,7 +4,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
-        classpath 'com.netflix.nebula:gradle-info-plugin:4.0.3'
+        classpath 'com.netflix.nebula:gradle-info-plugin:11.3.3'
     }
 }
 
